@@ -11,8 +11,7 @@ public class OriginalCompare implements Comparator<Product> {
 
 	@Override
 	public int compare(Product o1, Product o2) {
-		// TODO Auto-generated method stub
-		return 0;
+		return Double.compare(o1.getOriginalPrice(), o2.getOriginalPrice());
 	}
 
 }
