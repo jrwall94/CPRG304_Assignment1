@@ -1,5 +1,7 @@
 package utilities;
 
+import products.*;
+
 /**
  * Implementation of a merge algorithm to perform a descending sort
  */
@@ -9,7 +11,7 @@ public class MergeSort {
 	 * Merge sorting algorithm. Recursively calls itself to sort an array in descending order
 	 * @param inputArray The array to be sorted
 	 */
-	public static void mergeSort(Integer[] inputArray) {
+	public static void mergeSort(Product[] inputArray) {
 		
 		//Divide the array into two
 		int arrayLength = inputArray.length;
@@ -18,8 +20,8 @@ public class MergeSort {
 		}
 		
 		int mid = arrayLength / 2;
-		Integer[] leftHalf = new Integer[mid];
-		Integer[] rightHalf = new Integer[arrayLength - mid];
+		Product[] leftHalf = new Product[mid];
+		Product[] rightHalf = new Product[arrayLength - mid];
 		
 		for (int i = 0; i < mid; i++) {
 			leftHalf[i] = inputArray[i];
@@ -38,7 +40,7 @@ public class MergeSort {
 		int l = 0, r = 0, m = 0;
 
 		while (l < leftHalf.length && r < rightHalf.length) {
-			if (leftHalf[l] > rightHalf[r]) {
+			if (leftHalf[l].compareTo(rightHalf[r]) > 0) {
 				inputArray[m] = leftHalf[l];
 				l++;
 				m++;

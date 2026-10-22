@@ -13,9 +13,10 @@ public abstract class Product implements Comparable<Product> {
 	public abstract double calcRealDiff();
 	
 	//Add Comparable implementation with calcRealDiff()
+	//**The current implementation compares the wrong values just for testing purposes**
 	public int compareTo( Product that )
 	{
-		return 0;
+		return Double.compare(this.getOriginalPrice(), that.getOriginalPrice());
 	}
 	
 	public double getOriginalPrice() {
