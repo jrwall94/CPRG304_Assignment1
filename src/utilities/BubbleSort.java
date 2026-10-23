@@ -23,40 +23,6 @@ public class BubbleSort
 	}
 
 	/**
-	 * Sorts by the adjusted price difference, largest first.
-	 *
-	 * @param products the products to sort
-	 * @throws NullPointerException when the array is missing
-	 */
-	public static void sort( Product[] products )
-	{
-		if( products == null )
-		{
-			throw new NullPointerException( "The product array is required." );
-		}
-
-		int size = products.length;
-		for( int pass = 0; pass < size - 1; pass++ )
-		{
-			boolean swapped = false;
-			for( int index = 0; index < size - 1 - pass; index++ )
-			{
-				// Left is smaller, so move the larger product forward.
-				if( products[index].compareTo( products[index + 1] ) < 0 )
-				{
-					swap( products, index, index + 1 );
-					swapped = true;
-				}
-			}
-			// This pass made no swaps, so the array is already descending.
-			if( !swapped )
-			{
-				break;
-			}
-		}
-	}
-
-	/**
 	 * Sorts by the given comparator, largest first.
 	 *
 	 * @param products the products to sort

@@ -103,7 +103,7 @@ public class AppDriver
 			case ("b"):
 				sortString = "Bubble";
 				startTime = System.nanoTime();
-				//Bubble sort
+				BubbleSort.sort(testArray, comparator);
 				endTime = System.nanoTime();
 				break;
 			case ("s"):
