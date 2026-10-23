@@ -65,39 +65,47 @@ public class AppDriver
 		
 		//Call the appropriate sorting method. Track the amount of time this takes in milliseconds
 		long startTime = 0, endTime = 0;
+		String sortString = null;
+		
 		System.out.println("Original Array: ");
 		for (Product item : testArray) {
 			System.out.println(item.getClass() + " - " + item.getOriginalPrice() + " " + item.getUpdatedPrice());
 		}
 		
+		//TODO: Change testArray to productArray when FileToArray is implemented
 		switch (sortAlgorithm) {
 			case ("b"):
+				sortString = "Bubble";
 				startTime = System.nanoTime();
 				//Bubble sort
 				endTime = System.nanoTime();
 				break;
 			case ("s"):
+				sortString = "Selection";
 				startTime = System.nanoTime();
-				//Selection sort
+				SelectionSort.selectionSort(testArray);
 				endTime = System.nanoTime();
 				break;
 			case ("i"):
+				sortString = "Insertion";
 				startTime = System.nanoTime();
 				//Insertion sort
 				endTime = System.nanoTime();
 				break;
 			case ("m"):
-				startTime = System.nanoTime();
-				//TODO: Change testArray to productArray when FileToArray is implemented
+				sortString = "Merge";
+				startTime = System.nanoTime();				
 				MergeSort.mergeSort(testArray);
 				endTime = System.nanoTime();
 				break;
 			case ("q"):
+				sortString = "Quick";
 				startTime = System.nanoTime();
-				//Quick sort
+				QuickSort.quickSort(testArray);
 				endTime = System.nanoTime();
 				break;
 			case ("z"):
+				sortString = "Custom";
 				startTime = System.nanoTime();
 				//Custom sort
 				endTime = System.nanoTime();
@@ -106,10 +114,16 @@ public class AppDriver
 		
 		//Display the results to the console
 		double milliTime = (endTime - startTime) / 1000000.0;
-		System.out.println("The sorting algorithm executed in " + milliTime + " milliseconds");
-		System.out.println("Final Array: ");
-		for (Product item : testArray) {
-			System.out.println(item.getClass() + " - " + item.getOriginalPrice() + " " + item.getUpdatedPrice());
+		System.out.println(sortString + " Sort run time was: " + milliTime + " milliseconds");
+		System.out.println("Final Array:");
+		
+		if (testArray.length <= 10) {
+			for (int i = 0; i < testArray.length; i++) {
+				System.out.println(i + "-th element:\t" + testArray[i].getClass() + "\t Original: " + testArray[i].getOriginalPrice() + "\tUpdated: " + testArray[i].getUpdatedPrice());
+			}
+		}
+		else if (testArray.length <= 1000) {
+			
 		}
 
 	}
