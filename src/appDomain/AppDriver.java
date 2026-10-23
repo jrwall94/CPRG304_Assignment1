@@ -115,7 +115,7 @@ public class AppDriver
 			case ("i"):
 				sortString = "Insertion";
 				startTime = System.nanoTime();
-				//Insertion sort
+				InsertionSort.insertionSort(testArray, comparator);
 				endTime = System.nanoTime();
 				break;
 			case ("m"):
