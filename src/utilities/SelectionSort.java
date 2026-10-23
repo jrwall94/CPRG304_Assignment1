@@ -13,23 +13,23 @@ public class SelectionSort {
 				if (inputArray[maxIndex].compareTo(inputArray[j]) < 0 ) {
 					maxIndex = j;
 				}
-				
-			//Swap
-			Product temp = inputArray[i];
-			inputArray[i] = inputArray[maxIndex];
-			inputArray[maxIndex] = temp;
-				
+
 			}
 			
-	
-			}
+		//Swap
+		Product temp = inputArray[i];
+		inputArray[i] = inputArray[maxIndex];
+		inputArray[maxIndex] = temp;
 			
-
-			
 	
-
 		}
-		
+			
+
+			
+	
+
 	}
+		
+}
 
 
