@@ -3,6 +3,10 @@ package appDomain;
 import products.*;
 import utilities.*;
 
+import java.util.Comparator;
+
+import external.*;
+
 /**
  * <p>
  * This application driver code is designed to be used as a basis for the
@@ -25,6 +29,9 @@ public class AppDriver
 		//Set sorting method, compare type, and file name based on user input
 		
 		String fileName = null, compareType = null, sortAlgorithm = null;
+		OriginalCompare oc = new OriginalCompare();
+		UpdatedCompare uc = new UpdatedCompare();
+		
 		
 		//TODO: Check for Index out of bounds exceptions?
 		
@@ -43,6 +50,25 @@ public class AppDriver
 						break;
 				}
 			}
+		}
+		
+		//Assign the correct comparator
+		Comparator<Product> comparator = null;
+		
+		//Use the comparable if "d"
+		switch (compareType) {
+			case "o":
+				comparator = oc;
+				break;
+			case "u":
+				comparator = uc;
+				break;
+			case "d":
+				comparator = Comparator.naturalOrder();
+				break;
+			default:
+				//TODO: Throw an error if it is not one of these options
+				break;
 		}
 		
 		
@@ -95,7 +121,7 @@ public class AppDriver
 			case ("m"):
 				sortString = "Merge";
 				startTime = System.nanoTime();				
-				MergeSort.mergeSort(testArray);
+				MergeSort.mergeSort(testArray, comparator);
 				endTime = System.nanoTime();
 				break;
 			case ("q"):
