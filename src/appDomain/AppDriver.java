@@ -145,11 +145,32 @@ public class AppDriver
 		
 		if (testArray.length <= 10) {
 			for (int i = 0; i < testArray.length; i++) {
-				System.out.println(i + "-th element:\t" + testArray[i].getClass() + "\t Original: " + testArray[i].getOriginalPrice() + "\tUpdated: " + testArray[i].getUpdatedPrice());
+				System.out.print(i + "-th element:\t" + testArray[i].getClass() + "\t");
+				switch (compareType) {
+				case "o":
+					System.out.println("Original: " + testArray[i].getOriginalPrice());
+					break;
+				case "u":
+					System.out.println("Updated: " + testArray[i].getUpdatedPrice());
+					break;
+				case "d":
+					System.out.println("Real Difference: " + testArray[i].calcRealDiff());
+					break;
+				}
+			
 			}
 		}
 		else if (testArray.length <= 1000) {
-			
+			//TODO: Show the first and last element with different formatting
+			for (int i = 0; i < testArray.length; i=i+100) {
+				System.out.println(i + "-th element:\t" + testArray[i].getClass() + "\t Original: " + testArray[i].getOriginalPrice() + "\tUpdated: " + testArray[i].getUpdatedPrice());
+			}
+		}
+		else {
+			//TODO: Show first and last element with different formatting
+			for (int i = 0; i < testArray.length; i=i+1000) {
+				System.out.println(i + "-th element:\t" + testArray[i].getClass() + "\t Original: " + testArray[i].getOriginalPrice() + "\tUpdated: " + testArray[i].getUpdatedPrice());
+			}
 		}
 
 	}
