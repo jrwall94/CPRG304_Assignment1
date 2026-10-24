@@ -109,7 +109,7 @@ public class AppDriver
 			case ("s"):
 				sortString = "Selection";
 				startTime = System.nanoTime();
-				SelectionSort.selectionSort(testArray);
+				SelectionSort.selectionSort(testArray, comparator);
 				endTime = System.nanoTime();
 				break;
 			case ("i"):
@@ -127,7 +127,7 @@ public class AppDriver
 			case ("q"):
 				sortString = "Quick";
 				startTime = System.nanoTime();
-				QuickSort.quickSort(testArray);
+				QuickSort.quickSort(testArray, comparator);
 				endTime = System.nanoTime();
 				break;
 			case ("z"):
