@@ -133,7 +133,7 @@ public class AppDriver
 			case ("z"):
 				sortString = "Custom";
 				startTime = System.nanoTime();
-				//Custom sort
+				CustomSort.heapSort(testArray, comparator);
 				endTime = System.nanoTime();
 				break;
 		}
