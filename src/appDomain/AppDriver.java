@@ -75,65 +75,46 @@ public class AppDriver
 		//Load array from text file by calling FileToArray() from the utilities package
 		Product[] productArray = FileToArray.fileToArray(fileName);
 		
-		//Array for testing only. Delete after FileToArray has been implemented ***********************
-		Product[] testArray = new Product[10];
-		testArray[0] = new Jeans(54.46, 63.25);
-		testArray[1] = new Dress(16.67, 20.82);
-		testArray[2] = new Shorts(79.82, 83.5);
-		testArray[3] = new Jeans(92.99, 169.9);
-		testArray[4] = new Jacket(75.95, 104.97);
-		testArray[5] = new Shorts(48.02, 70.71);
-		testArray[6] = new Shorts(20.86, 68.57);
-		testArray[7] = new Shorts(44.98, 117.02);
-		testArray[8] = new Shorts(77.81, 176.19);
-		testArray[9] = new Jacket(70.01, 143.2);
-		//**********************************************************************************************
-		
 		//Call the appropriate sorting method. Track the amount of time this takes in milliseconds
 		long startTime = 0, endTime = 0;
 		String sortString = null;
-		
-		System.out.println("Original Array: ");
-		for (Product item : testArray) {
-			System.out.println(item.getClass() + " - " + item.getOriginalPrice() + " " + item.getUpdatedPrice());
-		}
 		
 		//TODO: Change testArray to productArray when FileToArray is implemented
 		switch (sortAlgorithm) {
 			case ("b"):
 				sortString = "Bubble";
 				startTime = System.nanoTime();
-				BubbleSort.sort(testArray, comparator);
+				BubbleSort.sort(productArray, comparator);
 				endTime = System.nanoTime();
 				break;
 			case ("s"):
 				sortString = "Selection";
 				startTime = System.nanoTime();
-				SelectionSort.selectionSort(testArray, comparator);
+				SelectionSort.selectionSort(productArray, comparator);
 				endTime = System.nanoTime();
 				break;
 			case ("i"):
 				sortString = "Insertion";
 				startTime = System.nanoTime();
-				InsertionSort.insertionSort(testArray, comparator);
+				InsertionSort.insertionSort(productArray, comparator);
 				endTime = System.nanoTime();
 				break;
 			case ("m"):
 				sortString = "Merge";
 				startTime = System.nanoTime();				
-				MergeSort.mergeSort(testArray, comparator);
+				MergeSort.mergeSort(productArray, comparator);
 				endTime = System.nanoTime();
 				break;
 			case ("q"):
 				sortString = "Quick";
 				startTime = System.nanoTime();
-				QuickSort.quickSort(testArray, comparator);
+				QuickSort.quickSort(productArray, comparator);
 				endTime = System.nanoTime();
 				break;
 			case ("z"):
 				sortString = "Custom";
 				startTime = System.nanoTime();
-				CustomSort.heapSort(testArray, comparator);
+				CustomSort.heapSort(productArray, comparator);
 				endTime = System.nanoTime();
 				break;
 		}
@@ -143,33 +124,55 @@ public class AppDriver
 		System.out.println(sortString + " Sort run time was: " + milliTime + " milliseconds");
 		System.out.println("Final Array:");
 		
-		if (testArray.length <= 10) {
-			for (int i = 0; i < testArray.length; i++) {
-				System.out.print(i + "-th element:\t" + testArray[i].getClass() + "\t");
+		if (productArray.length <= 10) {
+			for (int i = 0; i < productArray.length; i++) {
+				System.out.print(i + "-th element:\t" + productArray[i].getClass() + "\t");
 				switch (compareType) {
 				case "o":
-					System.out.println("Original: " + testArray[i].getOriginalPrice());
+					System.out.println("Original: " + productArray[i].getOriginalPrice());
 					break;
 				case "u":
-					System.out.println("Updated: " + testArray[i].getUpdatedPrice());
+					System.out.println("Updated: " + productArray[i].getUpdatedPrice());
 					break;
 				case "d":
-					System.out.println("Real Difference: " + testArray[i].calcRealDiff());
+					System.out.println("Real Difference: " + productArray[i].calcRealDiff());
 					break;
 				}
 			
 			}
 		}
-		else if (testArray.length <= 1000) {
+		else if (productArray.length <= 1000) {
 			//TODO: Show the first and last element with different formatting
-			for (int i = 0; i < testArray.length; i=i+100) {
-				System.out.println(i + "-th element:\t" + testArray[i].getClass() + "\t Original: " + testArray[i].getOriginalPrice() + "\tUpdated: " + testArray[i].getUpdatedPrice());
+			for (int i = 0; i < productArray.length; i=i+100) {
+				System.out.print(i + "-th element:\t" + productArray[i].getClass() + "\t");
+				switch (compareType) {
+				case "o":
+					System.out.println("Original: " + productArray[i].getOriginalPrice());
+					break;
+				case "u":
+					System.out.println("Updated: " + productArray[i].getUpdatedPrice());
+					break;
+				case "d":
+					System.out.println("Real Difference: " + productArray[i].calcRealDiff());
+					break;
+				}
 			}
 		}
 		else {
 			//TODO: Show first and last element with different formatting
-			for (int i = 0; i < testArray.length; i=i+1000) {
-				System.out.println(i + "-th element:\t" + testArray[i].getClass() + "\t Original: " + testArray[i].getOriginalPrice() + "\tUpdated: " + testArray[i].getUpdatedPrice());
+			for (int i = 0; i < productArray.length; i=i+1000) {
+				System.out.print(i + "-th element:\t" + productArray[i].getClass() + "\t");
+				switch (compareType) {
+				case "o":
+					System.out.println("Original: " + productArray[i].getOriginalPrice());
+					break;
+				case "u":
+					System.out.println("Updated: " + productArray[i].getUpdatedPrice());
+					break;
+				case "d":
+					System.out.println("Real Difference: " + productArray[i].calcRealDiff());
+					break;
+				}
 			}
 		}
 
