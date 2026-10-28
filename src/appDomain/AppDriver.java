@@ -9,10 +9,27 @@ import external.*;
 
 /**
  * <p>
- * This application driver code is designed to be used as a basis for the
- * Complexity and Sorting assignment that will be developed in the CPRG304 
- * class at SAIT. The implementors of this applications will be required
- * to add all the correct functionality.
+ * This application driver code is the entry point for the
+ * complexity and sorting assignment developed for the CPRG304 
+ * class at SAIT. The following flags can be used to run it:
+ * <ul>
+ * <li>-t: Compare type</li>
+ * <ul>
+ * <li>o: Original value</li>
+ * <li>u: Updated value</li>
+ * <li>d: Calculated difference</li>
+ * </ul>
+ * <li>-s: Sorting algorithm</li>
+ * <ul>
+ * <li>b: Bubble sort</li>
+ * <li>s: Selection sort</li>
+ * <li>i: Insertion sort</li>
+ * <li>m: Merge sort</li>
+ * <li>q: Quick sort</li>
+ * <li>z: Custom sort (Heap sort)</li>
+ * </ul>
+ * <li>-f: File name</li>
+ * </ul>
  * </p>
  */
 public class AppDriver
@@ -124,6 +141,7 @@ public class AppDriver
 		System.out.println(sortString + " Sort run time was: " + milliTime + " milliseconds");
 		System.out.println("Final Array:");
 		
+		//Output for a short list
 		if (productArray.length <= 10) {
 			for (int i = 0; i < productArray.length; i++) {
 				System.out.print(i + "-th element:\t" + productArray[i].getClass() + "\t");
@@ -141,6 +159,7 @@ public class AppDriver
 			
 			}
 		}
+		//Output for a medium list
 		else if (productArray.length <= 1000) {
 			//TODO: Show the first and last element with different formatting
 			for (int i = 0; i < productArray.length; i=i+100) {
@@ -158,6 +177,7 @@ public class AppDriver
 				}
 			}
 		}
+		//Output for a long list
 		else {
 			//TODO: Show first and last element with different formatting
 			for (int i = 0; i < productArray.length; i=i+1000) {

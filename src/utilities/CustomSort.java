@@ -6,17 +6,17 @@ import products.Product;
 
 /**
  * Holds a custom sorting algorithm to sort in descending order.
- * The chosen algorithm was a heap sort.
+ * The chosen algorithm was heap sort.
  */
 public class CustomSort {
 	
 	/**
-	 * Performs a heap sort. Creates a min heap in order to perform a descending sort
-	 * <p>Pseudocode:</p>
+	 * Performs a heap sort. Creates a min-heap in order to perform a descending sort
+	 * <p>Pseudo code:</p>
 	 * <ol>
-	 * <li>Create a min heap from the array to be sorted</li>
+	 * <li>Create a min-heap from the array to be sorted</li>
 	 * <li>Swap the first item with the last in the heap. This last item is now sorted and can be ignored</li>
-	 * <li>Restore the min heap</li>
+	 * <li>Restore the min-heap</li>
 	 * <li>Continue steps 2 and 3 until every item has been sorted</li>
 	 * </ol>
 	 * <h2>Time Complexity: </h2>O(nlogn)
@@ -28,7 +28,7 @@ public class CustomSort {
 	public static void heapSort(Product[] arr, Comparator<Product> comparator) {
 		int arrSize = arr.length;
 		
-		//Build the min heap by rearranging the original array
+		//Build the min-heap by rearranging the original array
 		for (int i = (arrSize / 2) - 1; i >= 0; i--) {
 			heapify(arr, comparator, arrSize, i);
 		}
@@ -41,7 +41,7 @@ public class CustomSort {
 			arr[0] = arr[i];
 			arr[i] = temp;
 			
-			//Restore the min heap structure
+			//Restore the min-heap structure
 			heapify(arr, comparator, i, 0);
 		}
 		
@@ -70,7 +70,7 @@ public class CustomSort {
 			arr[root] = arr[smallest];
 			arr[smallest] = temp;
 			
-			// Heapify the affected sub-tree
+			// Make the affected sub-tree a min-heap
 			heapify(arr, comparator, arrSize, smallest);
 		}
 	}
