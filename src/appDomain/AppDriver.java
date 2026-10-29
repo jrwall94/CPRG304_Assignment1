@@ -5,6 +5,8 @@ import utilities.*;
 
 import java.util.Comparator;
 
+import exception.InvalidCompareTypeException;
+import exception.InvalidSortingAlgorithmException;
 import external.*;
 
 /**
@@ -49,91 +51,112 @@ public class AppDriver
 		OriginalCompare oc = new OriginalCompare();
 		UpdatedCompare uc = new UpdatedCompare();
 		
-		
-		//TODO: Check for Index out of bounds exceptions?
-		
-		for (String arg : args) {
-			if (arg.charAt(0) == '-') {
-				switch (arg.toLowerCase().charAt(1)) {
-					case 'f':
-						fileName = arg.substring(2);
-						break;
-					case 't':
-						//Read more than just charAt(2) to better deal with incorrect inputs
-						compareType = arg.substring(2);
-						break;
-					case 's':
-						sortAlgorithm = arg.substring(2);
-						break;
+		try {
+			for (String arg : args) {
+				if (arg.charAt(0) == '-') {
+					switch (arg.toLowerCase().charAt(1)) {
+						case 'f':
+							fileName = arg.substring(2);
+							break;
+						case 't':
+							//Read more than just charAt(2) to better deal with incorrect inputs
+							compareType = arg.substring(2).toLowerCase();
+							break;
+						case 's':
+							sortAlgorithm = arg.substring(2).toLowerCase();
+							break;
+					}
 				}
 			}
+		} catch (StringIndexOutOfBoundsException e) {
+			System.out.println("ERROR: Missing a value after a flag (-)");
 		}
 		
 		//Assign the correct comparator
 		Comparator<Product> comparator = null;
 		
-		//Use the comparable if "d"
-		switch (compareType) {
-			case "o":
-				comparator = oc;
-				break;
-			case "u":
-				comparator = uc;
-				break;
-			case "d":
-				comparator = Comparator.naturalOrder();
-				break;
-			default:
-				//TODO: Throw an error if it is not one of these options
-				break;
+		//Use the comparable if sorting by real difference
+		try {
+			switch (compareType) {
+				case "o":
+					comparator = oc;
+					break;
+				case "u":
+					comparator = uc;
+					break;
+				case "d":
+					comparator = Comparator.naturalOrder();
+					break;
+				default:
+					throw new InvalidCompareTypeException();
+			}
+		} catch (NullPointerException e) {
+			System.out.println("ERROR: No compare type was given. Please use the -t flag");
+			return;
+		} catch (InvalidCompareTypeException e) {
+			System.out.println(e.getMessage());
+			return;
 		}
 		
 		
 		//Load array from text file by calling FileToArray() from the utilities package
 		Product[] productArray = FileToArray.fileToArray(fileName);
 		
+		if (productArray == null) {
+			return;
+		}
+		
 		//Call the appropriate sorting method. Track the amount of time this takes in milliseconds
 		long startTime = 0, endTime = 0;
 		String sortString = null;
 		
-		//TODO: Change testArray to productArray when FileToArray is implemented
-		switch (sortAlgorithm) {
-			case ("b"):
-				sortString = "Bubble";
-				startTime = System.nanoTime();
-				BubbleSort.sort(productArray, comparator);
-				endTime = System.nanoTime();
-				break;
-			case ("s"):
-				sortString = "Selection";
-				startTime = System.nanoTime();
-				SelectionSort.selectionSort(productArray, comparator);
-				endTime = System.nanoTime();
-				break;
-			case ("i"):
-				sortString = "Insertion";
-				startTime = System.nanoTime();
-				InsertionSort.insertionSort(productArray, comparator);
-				endTime = System.nanoTime();
-				break;
-			case ("m"):
-				sortString = "Merge";
-				startTime = System.nanoTime();				
-				MergeSort.mergeSort(productArray, comparator);
-				endTime = System.nanoTime();
-				break;
-			case ("q"):
-				sortString = "Quick";
-				startTime = System.nanoTime();
-				QuickSort.quickSort(productArray, comparator);
-				endTime = System.nanoTime();
-				break;
-			case ("z"):
-				sortString = "Custom";
-				startTime = System.nanoTime();
-				CustomSort.heapSort(productArray, comparator);
-				endTime = System.nanoTime();
-				break;
+		try {
+			switch (sortAlgorithm) {
+				case ("b"):
+					sortString = "Bubble";
+					startTime = System.nanoTime();
+					BubbleSort.sort(productArray, comparator);
+					endTime = System.nanoTime();
+					break;
+				case ("s"):
+					sortString = "Selection";
+					startTime = System.nanoTime();
+					SelectionSort.selectionSort(productArray, comparator);
+					endTime = System.nanoTime();
+					break;
+				case ("i"):
+					sortString = "Insertion";
+					startTime = System.nanoTime();
+					InsertionSort.insertionSort(productArray, comparator);
+					endTime = System.nanoTime();
+					break;
+				case ("m"):
+					sortString = "Merge";
+					startTime = System.nanoTime();				
+					MergeSort.mergeSort(productArray, comparator);
+					endTime = System.nanoTime();
+					break;
+				case ("q"):
+					sortString = "Quick";
+					startTime = System.nanoTime();
+					QuickSort.quickSort(productArray, comparator);
+					endTime = System.nanoTime();
+					break;
+				case ("z"):
+					sortString = "Heap";
+					startTime = System.nanoTime();
+					CustomSort.heapSort(productArray, comparator);
+					endTime = System.nanoTime();
+					break;
+				default:
+					throw new InvalidSortingAlgorithmException();
+			} 
+		} catch (InvalidSortingAlgorithmException e) {
+			System.out.println(e.getMessage());
+			return;
+		} catch (NullPointerException e) {
+			System.out.println("No sorting algorithm was given. Please use the -s flag");
+			return;
 		}
 		
 		//Display the results to the console
@@ -177,10 +200,10 @@ public class AppDriver
 				}
 			}
 		}
-		//Output for a long list
+		//Output for a long list - Show roughly 20 equally spaced elements to avoid overwhelming output
 		else {
 			//TODO: Show first and last element with different formatting
-			for (int i = 0; i < productArray.length; i=i+1000) {
+			for (int i = 0; i < productArray.length; i=i+(productArray.length/20)) {
 				System.out.print(i + "-th element:\t" + productArray[i].getClass() + "\t");
 				switch (compareType) {
 				case "o":

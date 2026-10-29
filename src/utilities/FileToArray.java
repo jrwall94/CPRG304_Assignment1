@@ -49,6 +49,10 @@ public class FileToArray {
 			System.err.println("Error: " + e.getMessage());
 		}
 		
+		catch (NullPointerException e) {
+			System.err.println("Error: No filename given");
+		}
+		
 		return null; 
 	}
 
