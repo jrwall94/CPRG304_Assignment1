@@ -159,66 +159,70 @@ public class AppDriver
 			return;
 		}
 		
-		//Display the results to the console
-		double milliTime = (endTime - startTime) / 1000000.0;
-		System.out.println(sortString + " Sort run time was: " + milliTime + " milliseconds");
-		System.out.println("Final Array:");
+		System.out.println("Sorted Array:");
+		
+		//Show first element
+		System.out.printf("%-20s %-25s \t", "First element is: ", productArray[0].getClass());
+		System.out.println(printHelper(compareType, productArray, 0));
 		
 		//Output for a short list
 		if (productArray.length <= 10) {
-			for (int i = 0; i < productArray.length; i++) {
-				System.out.print(i + "-th element:\t" + productArray[i].getClass() + "\t");
-				switch (compareType) {
-				case "o":
-					System.out.println("Original: " + productArray[i].getOriginalPrice());
-					break;
-				case "u":
-					System.out.println("Updated: " + productArray[i].getUpdatedPrice());
-					break;
-				case "d":
-					System.out.println("Real Difference: " + productArray[i].calcRealDiff());
-					break;
-				}
-			
+			//Manually print 2nd and 3rd elements rather than make a suffix switch-case for only two outliers
+			System.out.printf("%-20s %-25s \t", "2-nd element:", productArray[1].getClass());
+			System.out.println(printHelper(compareType, productArray, 1));
+			System.out.printf("%-20s %-25s \t", "3-rd element:", productArray[2].getClass());
+			System.out.println(printHelper(compareType, productArray, 2));
+			for (int i = 3; i < productArray.length - 1; i++) {
+				System.out.printf("%-20s %-25s \t", (i+1) + "-th element:", productArray[i].getClass());
+				System.out.println(printHelper(compareType, productArray, i));
 			}
 		}
 		//Output for a medium list
 		else if (productArray.length <= 1000) {
-			//TODO: Show the first and last element with different formatting
-			for (int i = 0; i < productArray.length; i=i+100) {
-				System.out.print(i + "-th element:\t" + productArray[i].getClass() + "\t");
-				switch (compareType) {
-				case "o":
-					System.out.println("Original: " + productArray[i].getOriginalPrice());
-					break;
-				case "u":
-					System.out.println("Updated: " + productArray[i].getUpdatedPrice());
-					break;
-				case "d":
-					System.out.println("Real Difference: " + productArray[i].calcRealDiff());
-					break;
-				}
+			for (int i = 99; i < productArray.length-100; i=i+100) {
+				System.out.printf("%-20s %-25s \t", (i+1) + "-th element:", productArray[i].getClass());
+				System.out.println(printHelper(compareType, productArray, i));
 			}
 		}
 		//Output for a long list - Show roughly 20 equally spaced elements to avoid overwhelming output
 		else {
-			//TODO: Show first and last element with different formatting
-			for (int i = 0; i < productArray.length; i=i+(productArray.length/20)) {
-				System.out.print(i + "-th element:\t" + productArray[i].getClass() + "\t");
-				switch (compareType) {
-				case "o":
-					System.out.println("Original: " + productArray[i].getOriginalPrice());
-					break;
-				case "u":
-					System.out.println("Updated: " + productArray[i].getUpdatedPrice());
-					break;
-				case "d":
-					System.out.println("Real Difference: " + productArray[i].calcRealDiff());
-					break;
-				}
+			for (int i = (productArray.length/20)-1; i < productArray.length-(productArray.length/20); i=i+(productArray.length/20)) {
+				System.out.printf("%-20s %-25s \t", (i+1) + "-th element:", productArray[i].getClass());
+				System.out.println(printHelper(compareType, productArray, i));
 			}
 		}
-
+		
+		//Show last element
+		System.out.printf("%-20s %-25s \t", "Last element is:", productArray[productArray.length-1].getClass());
+		System.out.println(printHelper(compareType, productArray, productArray.length-1));
+		
+		//Display the timing results to the console
+		double milliTime = (endTime - startTime) / 1000000.0;
+		System.out.println(sortString + " Sort run time was: " + milliTime + " milliseconds");
+	}
+	
+	/**
+	 * A function to help with looking at the comparison type and show the correct variable
+	 * @param compareType The type of comparison being done by the main function
+	 * @param productArray The array of products being processed by the main function
+	 * @param index The current index of the array being looked at
+	 * @return outputString The string to be printed by the main function
+	 */
+	private static String printHelper(String compareType, Product[] productArray, int index) {
+		String outputString = "";
+		switch (compareType) {
+		case "o":
+			outputString = "Original: " + productArray[index].getOriginalPrice();
+			break;
+		case "u":
+			outputString = "Updated: " + productArray[index].getUpdatedPrice();
+			break;
+		case "d":
+			outputString = "Real Difference: " + productArray[index].calcRealDiff();
+			break;
+		}
+		return outputString;
+		
 	}
 
 }
