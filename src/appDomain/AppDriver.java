@@ -102,7 +102,12 @@ public class AppDriver
 		//Load array from text file by calling FileToArray() from the utilities package
 		Product[] productArray = FileToArray.fileToArray(fileName);
 		
+		//Ends program after error has been displayed by FileToArray
 		if (productArray == null) {
+			return;
+		}
+		if (productArray.length == 0) {
+			System.out.println("You cannot sort an empty list");
 			return;
 		}
 		
@@ -179,14 +184,14 @@ public class AppDriver
 		}
 		//Output for a medium list
 		else if (productArray.length <= 1000) {
-			for (int i = 99; i < productArray.length-100; i=i+100) {
+			for (int i = 99; i < productArray.length - 1; i=i+100) {
 				System.out.printf("%-20s %-25s \t", (i+1) + "-th element:", productArray[i].getClass());
 				System.out.println(printHelper(compareType, productArray, i));
 			}
 		}
-		//Output for a long list - Show roughly 20 equally spaced elements to avoid overwhelming output
+		//Output for a long list
 		else {
-			for (int i = (productArray.length/20)-1; i < productArray.length-(productArray.length/20); i=i+(productArray.length/20)) {
+			for (int i = 999; i < productArray.length - 1; i=i+1000) {
 				System.out.printf("%-20s %-25s \t", (i+1) + "-th element:", productArray[i].getClass());
 				System.out.println(printHelper(compareType, productArray, i));
 			}
