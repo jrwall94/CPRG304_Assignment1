@@ -63,7 +63,13 @@ public class FileToArray {
 		return null; 
 	}
 
-	//file uses plural words (Dresses), classes are singular (Dress), switch picks the matching subclass
+	/**
+	 * The files use plural words (Dresses), classes are singular (Dress), switch picks the matching subclass
+	 * @param type The Product subclass to create the Product as
+	 * @param originalPrice The original price of the Product
+	 * @param updatedPrice The updated price of the Product
+	 * @return
+	 */
 	private static Product createProduct(String type, double originalPrice, double updatedPrice) {
 		switch (type) {
 			case "Jeans":   return new Jeans(originalPrice, updatedPrice);
