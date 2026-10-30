@@ -11,6 +11,13 @@ import java.util.Scanner;
  */
 public class FileToArray {
 
+	/**
+	 * Takes a filename as a string, constructs an array of Products from 
+	 * the information inside the file. Throws appropriate errors when
+	 * the file is not in the correct format.
+	 * @param filename The filename or path to the file
+	 * @return An array of Products parsed from the file
+	 */
 	public static Product[] fileToArray(String filename) {
 		try {
 			Scanner input = new Scanner(new File(filename));
